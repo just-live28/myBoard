@@ -61,10 +61,14 @@
         .navi a {
             display: inline-block;
             margin: 0 25px;
-            /* color: #898c92; */
-            color: black;
+            color: #898c92;
             font-size: 24px;
             line-height: 77px;
+        }
+        
+        .navi #naviAnker{
+        	color: #36393f;
+	    	border-bottom: 2px solid #36393f;
         }
 
         .writeBoard {
@@ -182,11 +186,11 @@
 <body>
     <div class="header">Header</div>
     <div class="navi">
-        <a href="mainboard.html" data-category="category_0">전체</a>
-        <a href="mainboard.html" data-category="category_1">자유</a>
-        <a href="mainboard.html" data-category="category_2">공략</a>
+        <a href="/list.cboard?category=0" data-category="category_0" id="naviAnker">전체</a>
+        <a href="/list.cboard?category=1" data-category="category_1">자유</a>
+        <a href="/list.cboard?category=2" data-category="category_2">공략</a>
     </div>
-    <form action="/write.board" method="post" id="writeForm">
+    <form action="/write.cboard" method="post" id="writeForm" enctype="multipart/form-data">
 	    <div class="writeBoard">
 	        <h3>jkh28님의 글</h3>
 	        <div class="category">
@@ -202,7 +206,7 @@
 	            </div>
 	        </div>
 	        <div class="title">
-	            <input type="text" placeholder="제목을 입력해 주세요" name="title" id="titleInput">
+	            <input type="text" placeholder="제목을 입력해 주세요" name="title" id="titleInput" maxlength="100">
 	        </div>
 	        <div class="fileBox">
 	            <div class="col-12 uploadCol">
@@ -225,6 +229,14 @@
     
 
     <script>
+    	$("#writeNoBtn").on("click", function(){
+			let isCancel = confirm("작성중인 글은 사라집니다. 계속하시겠습니까?");
+			
+			if(isCancel){
+				location.href = "/list.cboard";
+			}
+    	});
+    
 	    $(document).ready(function(){
 	    	let maxLength = 3000;
 	    	function updateCharCount() {
@@ -328,6 +340,15 @@
 ﻿			} else {
 				$("#contentInput").val($('#summernote').summernote('code'));
 			}
+		});
+        
+        $(".navi a").on("click", function(e){
+			let isCancelWrite = confirm("작성중인 글은 사라집니다. 계속하시겠습니까?");
+			
+			if(!isCancelWrite){
+				e.preventDefault();
+			}
+			
 		});
     </script>
 </body>

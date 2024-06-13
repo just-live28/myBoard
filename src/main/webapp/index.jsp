@@ -16,7 +16,7 @@
 	
 	<script>
 		$("#goBoard").on("click", function(){
-			location.href = "/list.board";
+			location.href = "/list.cboard";
 		})
 	</script>
 	
